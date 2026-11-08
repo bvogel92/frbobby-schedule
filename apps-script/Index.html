@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule a Visit · Fr. Bobby Vogel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+/* Vellum & lapis ink: an architect's elevation sheet. One deliberate light look. */
+:root{
+  --bg:#EEF0F4; --surface:#F7F8FA; --surface-2:#E6E9F0; --paper:#FFFFFF;
+  --ink:#13264A; --muted:#5B6579; --body-ink:#3B4558;
+  --line:rgba(29,58,110,.28); --line-2:rgba(29,58,110,.45);
+  --primary:#1D3A6E; --primary-hover:#244782; --on-primary:#FFFFFF; --link:#1D3A6E;
+  --gilt:#A9822F; --gilt-ink:#7D5F1C; --gilt-soft:#EFE6CF; --gilt-bright:#C9A24B;
+  --wine:#8E2433; --wine-soft:#F4E2E4; --green:#2F6B4F; --green-soft:#E1EEE6;
+  --bar:#1D3A6E; --bar-muted:#C9D4EA;
+  --display:'Marcellus',Georgia,serif; --body:'Alegreya Sans',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15;text-wrap:balance}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--gilt);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- top bar ---------- */
+.bar{background:var(--bar);color:#fff}
+.bar .wrap{display:flex;align-items:center;gap:12px;min-height:64px}
+.mark{width:24px;height:24px;flex:none;color:var(--gilt-bright)}
+.bar .who{font-family:var(--display);font-size:20px}
+.bar .sub{color:var(--bar-muted);font-size:15px;margin-left:auto}
+.bar a{color:inherit;text-decoration:none}
+
+/* ---------- landing ---------- */
+.hero{padding-block:56px 64px}
+.hero-in{display:flex;flex-wrap:wrap;gap:48px;align-items:center}
+.hero-copy{flex:1 1 360px;min-width:0;max-width:460px;display:flex;flex-direction:column;gap:20px}
+.hero h1{font-size:54px;line-height:1.08}
+.hero .lede{margin:0;font-size:19px;line-height:1.55;color:var(--body-ink)}
+.hero blockquote{margin:4px 0 0;padding:4px 0 4px 18px;border-left:2px solid var(--gilt);font-style:italic;font-size:17px;line-height:1.5;color:#4a4336}
+.hero blockquote cite{display:block;margin-top:4px;font-style:normal;font-size:14px;color:var(--muted)}
+.hero .note{margin:8px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
+.hero-windows{flex:1 1 520px;min-width:0;display:flex;justify-content:center;gap:56px}
+.window{background:none;border:0;padding:0;margin:0;cursor:pointer;width:236px;max-width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink)}
+.window svg{display:block;width:100%;height:auto}
+.plaque{flex-grow:1;width:100%;margin-top:6px;justify-content:center;border:1px solid var(--primary);box-shadow:inset 0 0 0 4px var(--bg),inset 0 0 0 5px var(--line-2);padding:20px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.plaque .town{font-family:var(--display);font-size:23px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.plaque .parish{font-size:16px;color:var(--gilt-ink)}
+.plaque .addr{font-size:14px;color:var(--muted)}
+.plaque .btn{margin-top:12px;padding:10px 18px;font-size:16px;gap:0;white-space:nowrap}
+.window:hover .btn{background:var(--primary-hover)}
+.window:hover .w-acc{stroke:var(--gilt-bright)}
+.w-lat{fill:none;stroke:var(--primary);stroke-width:.7;opacity:.4}
+.w-ln{fill:none;stroke:var(--primary);stroke-width:1.2;stroke-linejoin:round}
+.w-lg{fill:none;stroke:var(--primary);stroke-width:2}
+.w-acc{fill:none;stroke:var(--gilt);stroke-width:1.4;transition:stroke .2s}
+.w-bar{fill:none;stroke:var(--primary);stroke-width:2}
+.w-mask{fill:var(--bg);fill-rule:evenodd}
+@media (prefers-reduced-motion:no-preference){
+  .hero-windows .window{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+  .hero-windows .window:nth-child(2){animation-delay:.1s}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+
+/* ---------- flow ---------- */
+.steps{display:flex;gap:6px;list-style:none;margin:28px 0 22px;padding:0;flex-wrap:wrap}
+.steps li{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--muted)}
+.steps li+li::before{content:"";width:22px;height:1px;background:var(--line-2);margin-right:2px}
+.steps .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:14px;border:1px solid var(--line-2);background:var(--surface)}
+.steps .on{color:var(--ink);font-weight:500}
+.steps .on .n{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.steps .done .n{background:var(--gilt-soft);border-color:var(--gilt);color:var(--ink)}
+.steps button{background:none;border:0;padding:0;color:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-2)}
+
+.panel{background:var(--surface);border:1px solid var(--primary);box-shadow:inset 0 0 0 4px var(--surface),inset 0 0 0 5px var(--line);border-radius:2px;padding:32px}
+.title{font-size:32px;margin-bottom:6px}
+.sublead{color:var(--muted);margin:0 0 22px}
+
+.types{display:grid;border-top:1px solid var(--line)}
+.type{display:grid;grid-template-columns:48px 1fr auto;gap:18px;align-items:center;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:18px 10px;cursor:pointer;transition:background .15s}
+.type:hover{background:var(--surface-2)}
+.type .ico{width:44px;height:56px;border:1.2px solid var(--primary);border-radius:999px 999px 3px 3px;color:var(--primary);display:grid;place-items:center;padding-top:6px}
+.type .ico svg{width:24px;height:24px}
+.type .tt{display:block;font-weight:700;font-size:19px;line-height:1.25}
+.type .tb{display:block;margin-top:2px;color:var(--muted);font-size:16px;line-height:1.4}
+.type .dur{color:var(--muted);font-size:15px;white-space:nowrap}
+.type.has-opts{cursor:default}
+.type.has-opts:hover{background:transparent}
+.opts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.chip{border:1px solid var(--primary);color:var(--link);background:transparent;border-radius:999px;padding:6px 18px;cursor:pointer;font-weight:500}
+.chip:hover{background:var(--primary);color:var(--on-primary)}
+
+/* ---------- picker ---------- */
+.picker{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head h3{font-size:22px}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:transparent;cursor:pointer;display:grid;place-items:center;color:var(--primary)}
+.icon-btn:disabled{opacity:.3;cursor:default}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dow{text-align:center;font-size:13px;color:var(--muted);padding:4px 0}
+.day{aspect-ratio:1;max-width:100%;border:0;border-radius:4px;background:transparent;position:relative;font-size:16px;color:var(--muted);cursor:default;font-variant-numeric:tabular-nums}
+.day.open{color:var(--ink);font-weight:700;cursor:pointer;background:var(--surface-2)}
+.day.open::after{content:"";position:absolute;left:50%;bottom:7px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--gilt)}
+.day.open:hover{background:var(--gilt-soft)}
+.day.sel{background:var(--primary)!important;color:var(--on-primary)}
+.day.sel::after{background:var(--gilt-bright)}
+.day.else{color:var(--muted);cursor:pointer;text-decoration:underline dotted;text-underline-offset:4px}
+.day.today{box-shadow:inset 0 0 0 1px var(--line-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-top:12px}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gilt);margin-right:6px;vertical-align:middle}
+.times h3{font-size:22px;margin-bottom:4px}
+.times .where{color:var(--muted);font-size:15px;margin:0 0 14px}
+.group{margin-bottom:16px}
+.group h4{margin:0 0 8px;font-size:15px;font-weight:500;color:var(--muted)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.slot{border:1px solid var(--primary);background:transparent;color:var(--link);border-radius:4px;padding:10px 6px;cursor:pointer;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
+.slot:hover,.slot.sel{background:var(--primary);color:var(--on-primary)}
+.empty{background:var(--surface-2);border-radius:3px;padding:18px;color:var(--muted)}
+.empty button{margin-top:10px}
+.loading{display:flex;align-items:center;gap:12px;color:var(--muted);padding:28px 0}
+.loading::before{content:"";width:22px;height:22px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--gilt);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- form ---------- */
+.two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start}
+.field{display:block;margin-bottom:16px}
+.field span{display:block;font-weight:500;margin-bottom:6px;font-size:16px}
+.field small{color:var(--muted);font-weight:400}
+.field input,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:3px;background:var(--paper);font-size:17px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,58,110,.15)}
+.field textarea{min-height:96px;resize:vertical}
+.hp{position:absolute;left:-9999px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:var(--on-primary);border:0;border-radius:999px;padding:13px 24px;font-weight:700;font-size:17px;cursor:pointer;text-decoration:none;min-height:44px}
+.btn:hover{background:var(--primary-hover)}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn.ghost{background:transparent;color:var(--link);border:1px solid var(--line-2)}
+.btn.ghost:hover{border-color:var(--primary);background:var(--surface-2)}
+.btn.danger{background:var(--wine);color:#fff}
+.btn.gold{background:var(--gilt);color:#fff}
+.btn.gold:hover{background:var(--gilt-ink)}
+.fine{color:var(--muted);font-size:15px;margin-top:12px}
+.summary{background:var(--bg);border:1px solid var(--line-2);box-shadow:inset 0 0 0 4px var(--bg),inset 0 0 0 5px var(--line);border-radius:2px;padding:24px}
+.summary h3{font-size:20px;margin-bottom:12px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:16px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.linkish{background:none;border:0;padding:0;color:var(--link);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:15px}
+.alert{border-radius:3px;padding:12px 16px;margin-bottom:16px;font-size:16px}
+.alert.err{background:var(--wine-soft);color:var(--wine)}
+.alert.ok{background:var(--green-soft);color:var(--green)}
+
+/* ---------- confirmation ---------- */
+.confirm{text-align:center;padding:44px 28px}
+.seal{width:76px;height:100px;margin:0 auto 20px;border:1.5px solid var(--green);border-radius:999px 999px 3px 3px;display:grid;place-items:center;padding-top:10px;color:var(--green);box-shadow:inset 0 0 0 5px var(--surface),inset 0 0 0 6px rgba(47,107,79,.35)}
+.seal.x{border-color:var(--wine);color:var(--wine);box-shadow:inset 0 0 0 5px var(--surface),inset 0 0 0 6px rgba(142,36,51,.3)}
+.seal svg{width:34px;height:34px}
+.confirm h2{font-size:36px}
+.confirm .kv{max-width:460px;margin:22px auto 0;text-align:left}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+
+/* ---------- admin ---------- */
+.adminbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:32px 0 16px}
+.tabs{display:inline-flex;gap:4px;border:1px solid var(--line-2);border-radius:999px;padding:4px;flex-wrap:wrap}
+.tabs button{border:0;background:transparent;border-radius:999px;padding:7px 16px;cursor:pointer;color:var(--muted)}
+.tabs button.on{background:var(--primary);color:var(--on-primary)}
+.dayhead{font-family:var(--display);font-size:22px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.mtg{background:var(--surface);border:1px solid var(--line-2);border-radius:2px;padding:16px 18px;margin-bottom:10px}
+.mtg.cx{opacity:.8}
+.mtg .top{display:flex;gap:12px;flex-wrap:wrap;align-items:baseline}
+.mtg .t{font-weight:700;min-width:150px;font-variant-numeric:tabular-nums}
+.mtg .what{font-weight:500}
+.mtg .meta{color:var(--muted);font-size:15px;margin-top:4px}
+.mtg .meta a{margin-right:14px}
+.mtg .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.mtg .acts .btn{padding:8px 16px;font-size:15px}
+.drawer{margin-top:14px;border-top:1px dashed var(--line-2);padding-top:14px}
+.pill{display:inline-block;font-size:13px;border-radius:999px;padding:2px 10px;border:1px solid var(--line-2);color:var(--muted)}
+.pill.cx{border-color:var(--wine);color:var(--wine)}
+.foot{color:var(--muted);font-size:14px;text-align:center;padding:40px 20px 30px}
+.demo{background:var(--gilt-soft);color:var(--ink);font-size:14px;text-align:center;padding:6px 12px}
+
+/* Embedded on the parish website: the site supplies its own header. */
+.embedded .bar{display:none}
+.embedded .foot{padding-block:24px}
+
+@media (max-width:760px){
+  body{font-size:17px}
+  .hero{padding-block:32px 40px}
+  .hero h1{font-size:40px}
+  .hero-in{gap:32px}
+  .hero-windows{gap:16px}
+  .window{flex:1 1 0;width:auto;min-width:0}
+  .plaque{padding:14px 8px 16px}
+  .plaque .town{font-size:18px;letter-spacing:.05em}
+  .plaque .parish{font-size:14px}
+  .plaque .addr{font-size:13px}
+  .plaque .btn{padding:8px 18px;font-size:15px}
+  .hide-sm{display:none}
+  .picker,.two{grid-template-columns:1fr}
+  .panel{padding:22px}
+  .type{grid-template-columns:44px 1fr;padding:14px 4px}
+  .type .dur{grid-column:2}
+  .bar .sub{display:none}
+  .steps li .lbl{display:none}
+  .steps li.on .lbl{display:inline}
+}
+</style>
+</head>
+<body>
+<script type="application/json" id="boot"><?!= boot ?></script>
+<div id="demo"></div>
+<header class="bar"><div class="wrap">
+  <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M14 3h4v8h8v4h-8v14h-4V15H6v-4h8z"/></svg>
+  <a class="who" href="#" id="homeLink">Fr. Bobby Vogel</a>
+  <span class="sub">St. Mary, Rushville &amp; St. Gabriel, Connersville</span>
+</div></header>
+<main id="app" aria-live="polite"></main>
+<footer class="foot">Questions? Reply to any confirmation email, or contact the parish office.</footer>
+
+<script>
+/* ======================================================================
+   Boot + backend bridge (live in Apps Script, demo data elsewhere)
+   ====================================================================== */
+var LIVE = !!(window.google && google.script && google.script.run);
+var BOOT;
+try { BOOT = JSON.parse(document.getElementById('boot').textContent); } catch (e) { BOOT = null; }
+if (!BOOT) BOOT = demoBoot();
+var TZ = BOOT.tz;
+var EMBED = !!BOOT.embed || /[?&]embed=1\b/.test(location.search);
+if (EMBED) document.documentElement.classList.add('embedded');
+
+/* When embedded, tell the parish website how tall to make the frame, and when to scroll to it. */
+function tellParent(msg) { if (!EMBED) return; try { window.top.postMessage(msg, '*'); } catch (e) { /* not framed */ } }
+function postHeight() { tellParent({ frbobbyHeight: Math.ceil(document.body.getBoundingClientRect().height) }); }
+
+function api(fn) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  return new Promise(function (resolve, reject) {
+    if (LIVE) {
+      var r = google.script.run.withSuccessHandler(resolve).withFailureHandler(function (e) { reject(new Error(cleanErr(e))); });
+      r[fn].apply(r, args);
+    } else {
+      setTimeout(function () { try { resolve(DEMO[fn].apply(null, args)); } catch (e) { reject(e); } }, 380);
+    }
+  });
+}
+function cleanErr(e) { return String((e && e.message) || e).replace(/^(Exception|Error|ScriptError):\s*/i, ''); }
+
+/* ======================================================================
+   Small helpers
+   ====================================================================== */
+function $(s, r) { return (r || document).querySelector(s); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function fmtDate(ymd, opts) { return new Date(ymd + 'T12:00:00Z').toLocaleDateString('en-US', Object.assign({ timeZone: 'UTC' }, opts)); }
+function fmtTime(ms) { return new Date(ms).toLocaleTimeString('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit' }); }
+function fmtWhen(ms) { return new Date(ms).toLocaleDateString('en-US', { timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric' }); }
+function hourOf(ms) { return Number(new Date(ms).toLocaleString('en-US', { timeZone: TZ, hour: 'numeric', hour12: false })); }
+function locById(id) { return BOOT.locations.filter(function (l) { return l.id === id; })[0]; }
+function typeById(id) { return BOOT.types.filter(function (t) { return t.id === id; })[0]; }
+function durLabel(m) { return m >= 60 ? (m / 60) + (m === 60 ? ' hour' : ' hours') : m + ' minutes'; }
+
+var ICONS = {
+  rings: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="7"/><circle cx="20" cy="18" r="7"/><path d="M10 7l2-3 2 3-2 2z"/></svg>',
+  shell: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M16 27L4 13a12 12 0 0124 0z"/><path d="M16 27L10 9M16 27V7M16 27l6-18"/><path d="M13 29h6"/></svg>',
+  door: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 28V14a9 9 0 0118 0v14z"/><path d="M4 28h24"/><circle cx="20" cy="20" r="1" fill="currentColor"/><path d="M16 5v-2"/></svg>',
+  candle: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M16 4c3 3 3 6 0 8-3-2-3-5 0-8z"/><path d="M12 14h8v14h-8z"/><path d="M8 28h16"/></svg>',
+  table: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 6h6v4a3 3 0 01-6 0z"/><path d="M12 13v8M9 21h6"/><ellipse cx="22" cy="17" rx="5" ry="3"/><path d="M17 17v2c0 2 2 3 5 3s5-1 5-3v-2"/><path d="M3 26h26"/></svg>'
+};
+var ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+var ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+var CHEV_L = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>';
+var CHEV_R = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>';
+/* Elevation drawing of a two-light Gothic window (pointed arch, roundel, leaded lights). */
+var WINDOW_SVG = (function () {
+  function n(v) { return Math.round(v * 10) / 10; }
+  function circ(cx, cy, r) { return 'M' + n(cx - r) + ' ' + n(cy) + 'a' + n(r) + ' ' + n(r) + ' 0 1 0 ' + n(2 * r) + ' 0a' + n(r) + ' ' + n(r) + ' 0 1 0 ' + n(-2 * r) + ' 0Z'; }
+  function pt(cx, cy, r, a) { return n(cx + r * Math.cos(a)) + ' ' + n(cy + r * Math.sin(a)); }
+  function rect(x, y, w, h) { return 'M' + n(x) + ' ' + n(y) + 'h' + n(w) + 'v' + n(h) + 'h' + n(-w) + 'Z'; }
+  function arch(x0, top, w, bottom) { var ys = top + w * 0.866; return 'M' + n(x0) + ' ' + n(bottom) + 'L' + n(x0) + ' ' + n(ys) + 'A' + n(w) + ' ' + n(w) + ' 0 0 1 ' + n(x0 + w / 2) + ' ' + n(top) + 'A' + n(w) + ' ' + n(w) + ' 0 0 1 ' + n(x0 + w) + ' ' + n(ys) + 'L' + n(x0 + w) + ' ' + n(bottom) + 'Z'; }
+  function inArch(x, y, x0, w, ys, bot) { if (x < x0 || x > x0 + w || y > bot) return false; if (y >= ys) return true; var a = x - (x0 + w), b = y - ys, c = x - x0; return a * a + b * b <= w * w && c * c + b * b <= w * w; }
+  function quatrefoil(cx, cy, a, q) { var t = (a + Math.sqrt(2 * q * q - a * a)) / 2, A = ' ' + n(q) + ' ' + n(q) + ' 0 1 1 '; return 'M' + n(cx + t) + ' ' + n(cy - t) + 'A' + A + n(cx + t) + ' ' + n(cy + t) + 'A' + A + n(cx - t) + ' ' + n(cy + t) + 'A' + A + n(cx - t) + ' ' + n(cy - t) + 'A' + A + n(cx + t) + ' ' + n(cy - t) + 'Z'; }
+  function inset(x0, ys, w, bot, d) { var R = w - d, rise = Math.sqrt(R * R - (w / 2) * (w / 2)); return 'M' + n(x0 + d) + ' ' + n(bot) + 'L' + n(x0 + d) + ' ' + n(ys) + 'A' + n(R) + ' ' + n(R) + ' 0 0 1 ' + n(x0 + w / 2) + ' ' + n(ys - rise) + 'A' + n(R) + ' ' + n(R) + ' 0 0 1 ' + n(x0 + w - d) + ' ' + n(ys) + 'L' + n(x0 + w - d) + ' ' + n(bot); }
+  var x0 = 28, w = 192, top = 45.7, bot = 610, t = 18, ys = top + w * 0.866, i, k, th, c, r, y, row, cx, cy;
+  var wl = (w - 8) / 2, ys2 = 250, lt = ys2 - wl * 0.866, lights = [x0, x0 + wl + 8], s = 18, h = 9;
+  var P = { lattice: '', bars: '', maskMed: '', med: '', medAcc: '', lights: '', roundel: '', roundelAcc: '', stone: '' };
+  lights.forEach(function (xl) {
+    row = 0;
+    for (cy = lt; cy <= bot + h; cy += h, row++) {
+      for (cx = xl + (row % 2 ? h : 0); cx <= xl + wl + h; cx += s) {
+        if (!inArch(cx, cy, xl, wl, ys2, bot + h)) continue;
+        P.lattice += 'M' + n(cx) + ' ' + n(cy - h) + 'L' + n(cx + h) + ' ' + n(cy) + 'L' + n(cx) + ' ' + n(cy + h) + 'L' + n(cx - h) + ' ' + n(cy) + 'Z';
+      }
+    }
+    [ys2 + 80, ys2 + 280, ys2 + 330].forEach(function (by) { P.bars += 'M' + n(xl) + ' ' + n(by) + 'h' + n(wl); });
+    var mx = xl + wl / 2, my = 440, m = 30, a;
+    P.maskMed += circ(mx, my, m + 1);
+    P.med += circ(mx, my, m) + circ(mx, my, m - 4) + circ(mx, my, 12);
+    for (i = 0; i < 8; i++) { a = i * Math.PI / 4 + Math.PI / 8; P.med += 'M' + pt(mx, my, 12, a) + 'L' + pt(mx, my, m - 4, a); }
+    P.medAcc += quatrefoil(mx, my, 5, 4.8);
+    P.lights += arch(xl, lt, wl, bot) + inset(xl, ys2, wl, bot, 5);
+  });
+  var rc = x0 + w / 2, rr = 46, rcy = ys2 - Math.sqrt((wl + rr) * (wl + rr) - (w / 2) * (w / 2));
+  P.roundel = circ(rc, rcy, rr) + circ(rc, rcy, rr - 6) + circ(rc, rcy, 4);
+  P.roundelAcc = quatrefoil(rc, rcy, rr * 0.36, rr * 0.34);
+  var glass = arch(x0, top, w, bot);
+  P.maskPlate = rect(-2, -2, 252, 656) + arch(lights[0], lt, wl, bot) + arch(lights[1], lt, wl, bot) + circ(rc, rcy, rr);
+  var R = w + 2 * t, T = Math.PI / 3;
+  P.stone += arch(x0 - t, ys - 0.866 * R, R, bot + t) + arch(x0 - t / 2, ys - 0.866 * (w + t), w + t, bot + t / 2);
+  var Rh = w + 2 * t + 8, xh = x0 - t - 4;
+  P.stone += 'M' + n(xh) + ' ' + n(ys) + 'A' + n(Rh) + ' ' + n(Rh) + ' 0 0 1 ' + n(xh + Rh / 2) + ' ' + n(ys - 0.866 * Rh) + 'A' + n(Rh) + ' ' + n(Rh) + ' 0 0 1 ' + n(xh + Rh) + ' ' + n(ys) + 'h5v8M' + n(xh) + ' ' + n(ys) + 'h-5v8';
+  for (k = 1; k < 7; k++) {
+    th = Math.PI + k / 7 * T; c = Math.cos(th); r = t * c + Math.sqrt(t * t * c * c - t * t + R * R); P.stone += 'M' + pt(x0 + w, ys, w, th) + 'L' + pt(x0 + w, ys, r, th);
+    th = 2 * Math.PI - k / 7 * T; c = Math.cos(th); r = -t * c + Math.sqrt(t * t * c * c - t * t + R * R); P.stone += 'M' + pt(x0, ys, w, th) + 'L' + pt(x0, ys, r, th);
+  }
+  for (y = ys + 44; y < bot; y += 56) P.stone += 'M' + n(x0 - t) + ' ' + n(y) + 'H' + n(x0) + 'M' + n(x0 + w) + ' ' + n(y) + 'H' + n(x0 + w + t);
+  P.stone += rect(2, bot + t - 8, 244, 30) + 'M2 ' + n(bot + t - 2) + 'H246';
+  function path(cls, d) { return '<path class="' + cls + '" d="' + d + '"></path>'; }
+  return '<svg viewBox="0 0 248 652" aria-hidden="true" focusable="false">' +
+    path('w-lat', P.lattice) + path('w-bar', P.bars) + path('w-mask', P.maskMed) + path('w-ln', P.med) + path('w-acc', P.medAcc) +
+    path('w-mask', P.maskPlate) + path('w-ln', P.lights) + path('w-ln', P.roundel) + path('w-acc', P.roundelAcc) +
+    path('w-lg', glass) + path('w-ln', P.stone) + '</svg>';
+})();
+
+/* ======================================================================
+   State
+   ====================================================================== */
+var S = {
+  page: BOOT.page, step: 'location', loc: null, type: null, detail: '',
+  avail: null, availKey: '', month: null, date: null, slot: null,
+  form: { name: '', email: '', phone: '', address: '', notes: '' },
+  error: '', busy: false, booking: null,
+  manage: { mode: 'view' }, admin: { tab: 'upcoming', data: null, open: null, mode: null, avail: null }
+};
+if (BOOT.loc && locById(BOOT.loc)) { S.loc = BOOT.loc; S.step = 'type'; }
+
+function set(patch) { Object.assign(S, patch); render(); }
+function scrollTop() {
+  try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
+  tellParent({ frbobbyScroll: true });
+}
+
+/* ======================================================================
+   Render root
+   ====================================================================== */
+function render() {
+  var app = $('#app');
+  if (S.page === 'manage') app.innerHTML = renderManage();
+  else if (S.page === 'admin') app.innerHTML = renderAdmin();
+  else app.innerHTML = renderBook();
+  var f = $('[data-autofocus]'); if (f) f.focus({ preventScroll: true });
+  postHeight();
+}
+
+/* ---------------- booking flow ---------------- */
+function renderBook() {
+  if (S.step === 'location') return renderLanding();
+  if (S.step === 'done') return '<div class="wrap" style="padding-top:32px">' + renderDone(S.booking, 'created') + '</div>';
+  var body = S.step === 'type' ? renderTypes() : S.step === 'time' ? renderTime() : renderDetails();
+  return '<div class="wrap">' + renderSteps() + body + '</div>';
+}
+
+function renderLanding() {
+  var w = BOOT.locations.map(function (l) {
+    var street = l.address.split(',')[0];
+    return '<button class="window" data-act="pickLoc" data-id="' + l.id + '" aria-label="Book in ' + esc(l.name) + ', ' + esc(l.parish) + '">' + WINDOW_SVG +
+      '<span class="plaque"><span class="town">' + esc(l.name) + '</span>' +
+      '<span class="parish">' + esc(l.parish) + '</span>' +
+      '<span class="addr">' + esc(street) + '</span>' +
+      '<span class="btn">Book<span class="hide-sm">&nbsp;in ' + esc(l.name) + '</span></span></span></button>';
+  }).join('');
+  return '<section class="hero"><div class="wrap hero-in">' +
+    '<div class="hero-copy"><h1>Schedule a visit with Fr. Bobby</h1>' +
+    '<p class="lede">Choose the parish closest to you, tell us what you’d like to talk about, and pick a time that works. You’ll get a confirmation by email right away.</p>' +
+    '<blockquote>Come to me, all you that labour, and are burdened, and I will refresh you.<cite>Matthew 11:28</cite></blockquote>' +
+    '<p class="note">Fr. Bobby meets people at the parish where he’s celebrating Mass that day, Tuesday through Saturday. Already booked? Use the link in your confirmation email to change or cancel.</p></div>' +
+    '<div class="hero-windows">' + w + '</div></div></section>';
+}
+
+function renderSteps() {
+  var names = [['type', 'Meeting'], ['time', 'Date & time'], ['details', 'Your details']];
+  var idx = { type: 0, time: 1, details: 2 }[S.step];
+  var loc = locById(S.loc);
+  var html = '<ol class="steps"><li class="done"><span class="n">' + ICON_CHECK.replace('<svg', '<svg width="13" height="13"') + '</span><span class="lbl"><button data-act="goStep" data-step="location">' + esc(loc.name) + '</button></span></li>';
+  names.forEach(function (n, i) {
+    var cls = i < idx ? 'done' : i === idx ? 'on' : '';
+    var label = i < idx ? '<button data-act="goStep" data-step="' + n[0] + '">' + esc(stepLabel(n[0]) || n[1]) + '</button>' : n[1];
+    html += '<li class="' + cls + '"><span class="n">' + (i + 2) + '</span><span class="lbl">' + label + '</span></li>';
+  });
+  return html + '</ol>';
+}
+function stepLabel(step) {
+  if (step === 'type' && S.type) return typeById(S.type).name.split(':')[0] + (S.detail ? ' · ' + S.detail : '');
+  if (step === 'time' && S.slot) return fmtDate(S.date, { month: 'short', day: 'numeric' }) + ', ' + fmtTime(S.slot);
+  return '';
+}
+
+function renderTypes() {
+  var loc = locById(S.loc);
+  var items = BOOT.types.map(function (t) {
+    var right = '<span class="dur">' + durLabel(t.minutes) + '</span>';
+    var text = '<span><span class="tt">' + esc(t.name) + '</span><span class="tb">' + esc(t.blurb) + '</span>';
+    if (t.options) {
+      text += '<span class="opts">' + t.options.map(function (o) {
+        return '<button class="chip" data-act="pickType" data-id="' + t.id + '" data-detail="' + esc(o) + '">' + esc(o) + '</button>';
+      }).join('') + '</span></span>';
+      return '<div class="type has-opts"><span class="ico">' + ICONS[t.icon] + '</span>' + text + right + '</div>';
+    }
+    return '<button class="type" data-act="pickType" data-id="' + t.id + '"><span class="ico">' + ICONS[t.icon] + '</span>' + text + '</span>' + right + '</button>';
+  }).join('');
+  return '<section class="panel"><h2 class="title">What would you like to meet about?</h2>' +
+    '<p class="sublead">Meeting at ' + esc(loc.parish) + ' in ' + esc(loc.name) + '.</p><div class="types">' + items + '</div></section>';
+}
+
+function renderTime() {
+  var t = typeById(S.type), loc = locById(S.loc);
+  return '<section class="panel"><h2 class="title">Pick a day and time</h2>' +
+    '<p class="sublead">' + esc(t.name) + (S.detail ? ' · ' + esc(S.detail) : '') + ' · ' + durLabel(t.minutes) + ' · ' + esc(loc.name) + '. Times are Eastern.</p>' +
+    (S.error ? '<div class="alert err" role="alert">' + esc(S.error) + '</div>' : '') +
+    renderPicker({ avail: S.avail, loc: S.loc, date: S.date, month: S.month, slot: S.slot, ns: 'book' }) + '</section>';
+}
+
+/* Shared calendar + slot picker. ctx.ns routes the clicks. */
+function renderPicker(ctx) {
+  if (!ctx.avail) return '<div class="loading">Checking Fr. Bobby’s calendar…</div>';
+  var days = ctx.avail.days, byDate = {};
+  if (!days || !days.length) return '<div class="empty">Open times couldn’t be loaded. Please refresh the page, or contact the parish office.</div>';
+  days.forEach(function (d) { byDate[d.date] = d; });
+  var first = days[0].date, last = days[days.length - 1].date;
+  var month = ctx.month || (ctx.date || firstOpen(days) || first).slice(0, 7);
+  var y = +month.slice(0, 4), m = +month.slice(5, 7);
+  var startW = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+  var dim = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  var cells = ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(function (d, i) { return '<div class="dow" aria-hidden="true">' + d + '</div>'; }).join('');
+  for (var i = 0; i < startW; i++) cells += '<div></div>';
+  for (var d = 1; d <= dim; d++) {
+    var ymd = month + '-' + (d < 10 ? '0' : '') + d, info = byDate[ymd];
+    var cls = 'day', attrs = ' disabled', label = fmtDate(ymd, { weekday: 'long', month: 'long', day: 'numeric' });
+    if (info && info.slots.length) { cls += ' open'; attrs = ' data-act="' + ctx.ns + 'Date" data-date="' + ymd + '"'; label += ', ' + info.slots.length + ' times open'; }
+    else if (info && info.elsewhere) { cls += ' else'; attrs = ' data-act="' + ctx.ns + 'Date" data-date="' + ymd + '"'; label += ', ' + info.reason; }
+    else if (info && info.reason) label += ', ' + info.reason;
+    if (ymd === ctx.date) cls += ' sel';
+    if (ymd === first) cls += ' today';
+    cells += '<button class="' + cls + '"' + attrs + ' aria-label="' + esc(label) + '" title="' + esc(info ? (info.reason || info.slots.length + ' open') : '') + '">' + d + '</button>';
+  }
+  var prev = month > first.slice(0, 7), next = month < last.slice(0, 7);
+  var cal = '<div><div class="cal-head"><button class="icon-btn" aria-label="Previous month" data-act="' + ctx.ns + 'Month" data-dir="-1"' + (prev ? '' : ' disabled') + '>' + CHEV_L + '</button>' +
+    '<h3>' + new Date(Date.UTC(y, m - 1, 15)).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' }) + '</h3>' +
+    '<button class="icon-btn" aria-label="Next month" data-act="' + ctx.ns + 'Month" data-dir="1"' + (next ? '' : ' disabled') + '>' + CHEV_R + '</button></div>' +
+    '<div class="grid">' + cells + '</div><div class="legend"><span><i></i>Open times</span><span>Dotted: Fr. Bobby is at the other parish</span></div></div>';
+
+  var right;
+  if (!ctx.date) {
+    right = firstOpen(days) ? '<div class="empty">Choose a day with a gold dot to see open times.</div>'
+      : '<div class="empty">There are no open times in the next two months. Please contact the parish office and we’ll find a time.</div>';
+  } else {
+    var info = byDate[ctx.date];
+    right = '<h3>' + fmtDate(ctx.date, { weekday: 'long', month: 'long', day: 'numeric' }) + '</h3>';
+    if (info.slots.length) {
+      right += '<p class="where">' + info.slots.length + ' open ' + (info.slots.length === 1 ? 'time' : 'times') + '</p>';
+      var groups = [['Morning', 0, 12], ['Afternoon', 12, 17], ['Evening', 17, 24]];
+      groups.forEach(function (g) {
+        var list = info.slots.filter(function (s) { var h = hourOf(s.t); return h >= g[1] && h < g[2]; });
+        if (!list.length) return;
+        right += '<div class="group"><h4>' + g[0] + '</h4><div class="slots">' + list.map(function (s) {
+          return '<button class="slot' + (s.t === ctx.slot ? ' sel' : '') + '" data-act="' + ctx.ns + 'Slot" data-t="' + s.t + '">' + esc(s.label) + '</button>';
+        }).join('') + '</div></div>';
+      });
+    } else if (info.elsewhere && ctx.ns === 'book') {
+      var other = locById(info.elsewhere);
+      right += '<div class="empty">Fr. Bobby is celebrating Mass in ' + esc(other.name) + ' that day.<br>' +
+        '<button class="btn ghost" data-act="switchLoc" data-id="' + other.id + '" data-date="' + ctx.date + '">See ' + esc(other.name) + ' times</button></div>';
+    } else {
+      right += '<div class="empty">No open times this day' + (info.reason ? ' (' + esc(info.reason.toLowerCase()) + ')' : '') + '.</div>';
+    }
+  }
+  return '<div class="picker">' + cal + '<div class="times">' + right + '</div></div>';
+}
+function firstOpen(days) { for (var i = 0; i < days.length; i++) if (days[i].slots.length) return days[i].date; return null; }
+
+function renderDetails() {
+  var t = typeById(S.type), f = S.form;
+  return '<section class="two"><div class="panel">' +
+    '<h2 class="title">Your details</h2><p class="sublead">So Fr. Bobby knows who he’s meeting and how to reach you.</p>' +
+    (S.error ? '<div class="alert err" role="alert">' + esc(S.error) + '</div>' : '') +
+    '<form id="bookForm" novalidate>' +
+    field('name', 'Full name', 'text', f.name, 'autocomplete="name" required data-autofocus') +
+    field('email', 'Email', 'email', f.email, 'autocomplete="email" required') +
+    field('phone', 'Phone', 'tel', f.phone, 'autocomplete="tel" required') +
+    (t.needsAddress ? field('address', 'Address for dinner', 'text', f.address, 'autocomplete="street-address" required', 'Where Fr. Bobby should come') : '') +
+    '<label class="field"><span>Anything Fr. Bobby should know? <small>(optional)</small></span><textarea name="notes" maxlength="1000">' + esc(f.notes) + '</textarea></label>' +
+    '<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+    '<button class="btn" type="submit"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Booking…' : 'Confirm meeting') + '</button>' +
+    '<p class="fine">You’ll get an email with a link to change or cancel at any time.</p></form></div>' +
+    renderSummary() + '</section>';
+}
+function field(name, label, type, val, extra, hint) {
+  return '<label class="field"><span>' + label + (hint ? ' <small>· ' + hint + '</small>' : '') + '</span><input name="' + name + '" type="' + type + '" value="' + esc(val) + '" ' + (extra || '') + '></label>';
+}
+function renderSummary() {
+  var t = typeById(S.type), l = locById(S.loc);
+  return '<aside class="summary"><h3>Your meeting</h3><dl class="kv">' +
+    '<dt>What</dt><dd>' + esc(t.name) + (S.detail ? ': ' + esc(S.detail) : '') + '</dd>' +
+    '<dt>When</dt><dd>' + esc(fmtWhen(S.slot)) + '<br>' + fmtTime(S.slot) + ' – ' + fmtTime(S.slot + t.minutes * 60000) + '</dd>' +
+    '<dt>Where</dt><dd>' + (t.needsAddress ? 'Your home (' + esc(l.name) + ' area)' : esc(l.parish) + '<br><small>' + esc(l.address) + '</small>') + '</dd>' +
+    '</dl><p style="margin:14px 0 0"><button class="linkish" data-act="goStep" data-step="time">Change time</button></p></aside>';
+}
+
+function renderDone(b, kind) {
+  var cancelled = b.status === 'Cancelled';
+  var head = cancelled ? 'Your meeting is cancelled' : kind === 'moved' ? 'Your meeting has moved' : 'You’re on the calendar';
+  var sub = cancelled ? 'We’ve let Fr. Bobby know. You’re welcome to book again whenever you’re ready.'
+    : 'A confirmation is on its way to ' + esc(b.email || 'your inbox') + '. Fr. Bobby has been notified.';
+  var acts = cancelled
+    ? '<a class="btn" href="' + esc(BOOT.baseUrl || '#') + (String(BOOT.baseUrl).indexOf('?') >= 0 ? '&' : '?') + 'loc=' + b.location + '" data-act="restart" data-loc="' + b.location + '">Book a new time</a>'
+    : '<a class="btn gold" href="' + esc(b.gcal) + '" target="_blank" rel="noopener">Add to Google Calendar</a>' +
+      (b.manageUrl ? '<a class="btn ghost" href="' + esc(b.manageUrl) + '" data-act="openManage">Change or cancel</a>' : '');
+  return '<section class="panel confirm"><div class="seal' + (cancelled ? ' x' : '') + '">' + (cancelled ? ICON_X : ICON_CHECK) + '</div>' +
+    '<h2>' + head + '</h2><p class="sublead" style="margin-top:8px">' + sub + '</p>' + bookingKv(b) +
+    '<div class="actions">' + acts + '</div></section>';
+}
+function bookingKv(b) {
+  var t = typeById(b.type);
+  return '<dl class="kv"><dt>What</dt><dd>' + esc(b.typeName) + '</dd>' +
+    '<dt>When</dt><dd>' + esc(b.dateLabel) + '<br>' + esc(b.timeLabel) + '</dd>' +
+    '<dt>Where</dt><dd>' + (t && t.needsAddress ? esc(b.address) : esc(b.parish) + ', ' + esc(b.locationName)) + '</dd>' +
+    '<dt>Name</dt><dd>' + esc(b.name) + '</dd><dt>Booking</dt><dd>' + esc(b.id) + '</dd></dl>';
+}
+
+/* ---------------- manage (person) ---------------- */
+function renderManage() {
+  var M = S.manage;
+  var out = '<div class="wrap" style="padding-top:32px">';
+  if (M.error) return out + '<section class="panel confirm"><div class="seal x">' + ICON_X + '</div><h2>Link not recognized</h2><p class="sublead">' + esc(M.error) + '</p><div class="actions"><a class="btn" href="' + esc(BOOT.baseUrl || '#') + '" data-act="restart">Book a meeting</a></div></section></div>';
+  if (!M.b) return out + '<div class="loading">Loading your meeting…</div></div>';
+  var b = M.b;
+  if (M.mode === 'done' || b.status === 'Cancelled') return out + renderDone(b, M.lastAction) + '</div>';
+  if (b.past) return out + '<section class="panel confirm"><h2>This meeting has passed</h2>' + bookingKv(b) + '<div class="actions"><a class="btn" href="' + esc(BOOT.baseUrl || '#') + '" data-act="restart">Book another meeting</a></div></section></div>';
+
+  out += '<section class="panel"><h2 class="title">Your meeting</h2><p class="sublead">Need a different time? Choose a new one below. Fr. Bobby will be notified automatically.</p>' +
+    (S.error ? '<div class="alert err" role="alert">' + esc(S.error) + '</div>' : '') + bookingKv(b);
+  if (M.mode === 'view') {
+    out += '<div class="actions" style="justify-content:flex-start"><button class="btn" data-act="mReschedule">Choose a new time</button><button class="btn ghost" data-act="mCancelAsk">Cancel meeting</button></div>';
+  } else if (M.mode === 'cancel') {
+    out += '<div class="drawer"><label class="field"><span>Want to tell Fr. Bobby why? <small>(optional)</small></span><textarea id="cxReason" maxlength="300"></textarea></label>' +
+      '<div class="actions" style="justify-content:flex-start"><button class="btn danger" data-act="mCancel"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Cancelling…' : 'Cancel meeting') + '</button><button class="btn ghost" data-act="mView">Keep meeting</button></div></div>';
+  } else if (M.mode === 'reschedule') {
+    out += '<div class="drawer">' + renderPicker({ avail: M.avail, date: M.date, month: M.month, slot: M.slot, ns: 'm' }) +
+      (M.slot ? '<div class="actions" style="justify-content:flex-start"><button class="btn" data-act="mConfirmMove"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Moving…' : 'Move to ' + esc(fmtWhen(M.slot)) + ', ' + fmtTime(M.slot)) + '</button><button class="btn ghost" data-act="mView">Keep current time</button></div>' :
+        '<p><button class="linkish" data-act="mView">Keep current time</button></p>') + '</div>';
+  }
+  return out + '</section></div>';
+}
+
+/* ---------------- admin (Fr. Bobby) ---------------- */
+function renderAdmin() {
+  var A = S.admin, out = '<div class="wrap">';
+  if (A.error) return out + '<section class="panel confirm" style="margin-top:32px"><div class="seal x">' + ICON_X + '</div><h2>Not authorized</h2><p class="sublead">' + esc(A.error) + '</p></section></div>';
+  if (!A.data) return out + '<div class="loading">Loading your meetings…</div></div>';
+  var D = A.data, list = D[A.tab];
+  out += '<div class="adminbar"><h1 style="font-size:34px">Your meetings</h1><div class="actions" style="margin:0">' +
+    '<button class="btn ghost" data-act="copyLink">' + (A.copied ? 'Link copied' : 'Copy booking link') + '</button>' +
+    '<a class="btn ghost" href="' + esc(D.sheetUrl) + '" target="_blank" rel="noopener">Open sheet</a></div></div>' +
+    '<div class="tabs" role="tablist">' + [['upcoming', 'Upcoming'], ['past', 'Past'], ['cancelled', 'Cancelled']].map(function (t) {
+      return '<button role="tab" aria-selected="' + (A.tab === t[0]) + '" class="' + (A.tab === t[0] ? 'on' : '') + '" data-act="aTab" data-tab="' + t[0] + '">' + t[1] + ' (' + D[t[0]].length + ')</button>';
+    }).join('') + '</div>';
+  if (S.notice) out += '<div class="alert ok" style="margin-top:16px">' + esc(S.notice) + '</div>';
+  if (!list.length) return out + '<div class="empty" style="margin-top:20px">' + (A.tab === 'upcoming' ? 'No meetings on the books yet. Share your booking link to get started.' : 'Nothing here.') + '</div></div>';
+  var lastDay = '';
+  list.forEach(function (b) {
+    if (b.dateLabel !== lastDay) { out += '<h2 class="dayhead">' + esc(b.dateLabel.replace(/, \d{4}$/, '')) + '</h2>'; lastDay = b.dateLabel; }
+    var t = typeById(b.type), open = A.open === b.id;
+    out += '<article class="mtg' + (b.status === 'Cancelled' ? ' cx' : '') + '"><div class="top"><span class="t">' + esc(b.timeLabel) + '</span>' +
+      '<span class="what">' + esc(b.typeName) + ' · ' + esc(b.name) + '</span> <span class="pill">' + esc(b.locationName) + '</span>' + (b.status === 'Cancelled' ? ' <span class="pill cx">Cancelled</span>' : '') + '</div>' +
+      '<div class="meta"><a href="tel:' + esc(String(b.phone).replace(/[^\d+]/g, '')) + '">' + esc(b.phone) + '</a><a href="mailto:' + esc(b.email) + '">' + esc(b.email) + '</a>' +
+      (t.needsAddress ? '<br>' + esc(b.address) : '') + (b.notes ? '<br><em>“' + esc(b.notes) + '”</em>' : '') + '</div>';
+    if (A.tab === 'upcoming') {
+      if (!open) out += '<div class="acts"><button class="btn ghost" data-act="aOpen" data-id="' + b.id + '" data-mode="move">Reschedule</button><button class="btn ghost" data-act="aOpen" data-id="' + b.id + '" data-mode="cancel">Cancel</button></div>';
+      else out += renderAdminDrawer(b);
+    }
+    out += '</article>';
+  });
+  return out + '</div>';
+}
+function renderAdminDrawer(b) {
+  var A = S.admin, html = '<div class="drawer">' + (S.error ? '<div class="alert err" role="alert">' + esc(S.error) + '</div>' : '');
+  if (A.mode === 'cancel') {
+    html += '<label class="field"><span>Message to ' + esc(b.name.split(' ')[0]) + ' <small>(optional, included in the email)</small></span><textarea id="aMsg" maxlength="500"></textarea></label>' +
+      '<div class="acts"><button class="btn danger" data-act="aCancel" data-id="' + b.id + '"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Cancelling…' : 'Cancel & notify ' + esc(b.name.split(' ')[0])) + '</button><button class="btn ghost" data-act="aClose">Keep</button></div>';
+  } else {
+    html += renderPicker({ avail: A.avail, date: A.date, month: A.month, slot: A.slot, ns: 'a' }) +
+      '<details style="margin-top:14px"><summary style="cursor:pointer;color:var(--muted)">Or set a time manually (ignores availability)</summary>' +
+      '<label class="field" style="margin-top:10px"><span>Date & start time (Eastern)</span><input type="datetime-local" id="aManual"></label></details>' +
+      '<label class="field" style="margin-top:12px"><span>Message to ' + esc(b.name.split(' ')[0]) + ' <small>(optional)</small></span><textarea id="aMsg" maxlength="500"></textarea></label>' +
+      '<div class="acts"><button class="btn" data-act="aMove" data-id="' + b.id + '"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Moving…' : 'Move & notify ' + esc(b.name.split(' ')[0])) + '</button><button class="btn ghost" data-act="aClose">Keep</button></div>';
+  }
+  return html + '</div>';
+}
+
+/* ======================================================================
+   Actions
+   ====================================================================== */
+function loadAvail(loc, type) {
+  var key = loc + '|' + type;
+  if (S.availKey === key && S.avail) return;
+  S.avail = null; S.availKey = key; S.date = null; S.slot = null; S.month = null;
+  render();
+  api('getAvailability', loc, type).then(function (res) {
+    if (S.availKey !== key) return;
+    var want = S._want; S._want = null;
+    var hit = want && res.days.filter(function (d) { return d.date === want && d.slots.length; })[0];
+    S.avail = res; S.date = hit ? want : firstOpen(res.days); render();
+  }).catch(function (e) { S.avail = { days: [] }; S.error = e.message; render(); });
+}
+
+var ACT = {
+  pickLoc: function (el) { S.loc = el.dataset.id; S.step = 'type'; S.error = ''; render(); scrollTop(); },
+  pickType: function (el) { S.type = el.dataset.id; S.detail = el.dataset.detail || ''; S.step = 'time'; S.error = ''; loadAvail(S.loc, S.type); scrollTop(); },
+  goStep: function (el) {
+    var st = el.dataset.step; S.error = '';
+    if (st === 'location') { S.type = null; S.slot = null; }
+    S.step = st; if (st === 'time') loadAvail(S.loc, S.type); render(); scrollTop();
+  },
+  switchLoc: function (el) { S._want = el.dataset.date; S.loc = el.dataset.id; loadAvail(S.loc, S.type); },
+  bookDate: function (el) { S.date = el.dataset.date; render(); },
+  bookMonth: function (el) { S.month = shiftMonth(S.month || (S.date || firstOpen(S.avail.days) || S.avail.days[0].date).slice(0, 7), +el.dataset.dir); render(); },
+  bookSlot: function (el) { S.slot = Number(el.dataset.t); S.step = 'details'; render(); scrollTop(); },
+  // Inside a website frame (or the preview) these stay in the app instead of loading a new page.
+  restart: function (el, ev) {
+    if (LIVE && !EMBED) return;
+    ev.preventDefault(); S.page = 'book'; S.loc = el.dataset.loc || null; S.step = S.loc ? 'type' : 'location';
+    S.type = null; S.slot = null; S.booking = null; S.error = ''; render(); scrollTop();
+  },
+  openManage: function (el, ev) {
+    if (LIVE && !EMBED) return;
+    ev.preventDefault();
+    var m = /[?&]t=([A-Za-z0-9]+)/.exec(el.getAttribute('href') || '');
+    BOOT.id = S.booking.id; BOOT.token = m ? m[1] : BOOT.token;
+    S.page = 'manage'; S.manage = { mode: 'view', b: S.booking }; S.error = ''; render(); scrollTop();
+  },
+
+  mReschedule: function () {
+    var M = S.manage; M.mode = 'reschedule'; M.avail = null; M.date = null; M.slot = null; M.month = null; S.error = ''; render();
+    api('getAvailability', M.b.location, M.b.type, M.b.id, BOOT.token).then(function (res) { M.avail = res; M.date = firstOpen(res.days); render(); })
+      .catch(function (e) { S.error = e.message; M.mode = 'view'; render(); });
+  },
+  mDate: function (el) { S.manage.date = el.dataset.date; S.manage.slot = null; render(); },
+  mMonth: function (el) { var M = S.manage; M.month = shiftMonth(M.month || (M.date || M.avail.days[0].date).slice(0, 7), +el.dataset.dir); render(); },
+  mSlot: function (el) { S.manage.slot = Number(el.dataset.t); render(); },
+  mView: function () { S.manage.mode = 'view'; S.error = ''; render(); },
+  mCancelAsk: function () { S.manage.mode = 'cancel'; render(); },
+  mConfirmMove: function () {
+    var M = S.manage; S.busy = true; S.error = ''; render();
+    api('rescheduleBooking', M.b.id, BOOT.token, M.slot).then(function (b) { S.busy = false; M.b = b; M.mode = 'done'; M.lastAction = 'moved'; render(); scrollTop(); })
+      .catch(function (e) { S.busy = false; S.error = e.message; render(); });
+  },
+  mCancel: function () {
+    var M = S.manage, reason = ($('#cxReason') || {}).value || ''; S.busy = true; render();
+    api('cancelBooking', M.b.id, BOOT.token, reason).then(function (b) { S.busy = false; M.b = b; M.mode = 'done'; render(); scrollTop(); })
+      .catch(function (e) { S.busy = false; S.error = e.message; M.mode = 'view'; render(); });
+  },
+
+  aTab: function (el) { S.admin.tab = el.dataset.tab; S.admin.open = null; S.notice = ''; render(); },
+  aOpen: function (el) {
+    var A = S.admin; A.open = el.dataset.id; A.mode = el.dataset.mode; A.avail = null; A.date = null; A.slot = null; A.month = null; S.error = ''; S.notice = ''; render();
+    if (A.mode === 'move') api('adminAvailability', BOOT.key, A.open).then(function (res) { A.avail = res; A.date = firstOpen(res.days); render(); })
+      .catch(function (e) { S.error = e.message; render(); });
+  },
+  aClose: function () { S.admin.open = null; S.error = ''; render(); },
+  aDate: function (el) { S.admin.date = el.dataset.date; S.admin.slot = null; render(); },
+  aMonth: function (el) { var A = S.admin; A.month = shiftMonth(A.month || (A.date || A.avail.days[0].date).slice(0, 7), +el.dataset.dir); render(); },
+  aSlot: function (el) { S.admin.slot = Number(el.dataset.t); render(); },
+  aMove: function (el) {
+    var A = S.admin, manual = ($('#aManual') || {}).value, msg = ($('#aMsg') || {}).value || '';
+    var when = manual || A.slot;
+    if (!when) { S.error = 'Pick a new time, or set one manually.'; render(); return; }
+    S.busy = true; S.error = ''; render();
+    api('adminReschedule', BOOT.key, el.dataset.id, when, msg, !!manual).then(function (b) {
+      S.busy = false; A.open = null; S.notice = 'Moved ' + b.name + ' to ' + b.dateLabel + ', ' + b.timeLabel + '. They’ve been emailed.'; return refreshAdmin();
+    }).catch(function (e) { S.busy = false; S.error = e.message; render(); });
+  },
+  aCancel: function (el) {
+    var A = S.admin, msg = ($('#aMsg') || {}).value || '';
+    S.busy = true; render();
+    api('adminCancel', BOOT.key, el.dataset.id, msg).then(function (b) {
+      S.busy = false; A.open = null; S.notice = 'Cancelled ' + b.name + '’s meeting. They’ve been emailed.'; return refreshAdmin();
+    }).catch(function (e) { S.busy = false; S.error = e.message; render(); });
+  },
+  copyLink: function () {
+    var url = S.admin.data.publicUrl || location.href;
+    var done = function () { S.admin.copied = true; render(); setTimeout(function () { S.admin.copied = false; render(); }, 2200); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt('Copy your booking link:', url); });
+    else prompt('Copy your booking link:', url);
+  }
+};
+function shiftMonth(ym, dir) { var y = +ym.slice(0, 4), m = +ym.slice(5, 7) + dir; if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; } return y + '-' + (m < 10 ? '0' : '') + m; }
+function refreshAdmin() { return api('adminList', BOOT.key).then(function (d) { S.admin.data = d; render(); }); }
+
+document.addEventListener('click', function (ev) {
+  var el = ev.target.closest('[data-act]');
+  if (!el || el.disabled) return;
+  var fn = ACT[el.dataset.act];
+  if (fn) { if (el.tagName === 'BUTTON') ev.preventDefault(); fn(el, ev); }
+});
+document.addEventListener('input', function (ev) {
+  if (ev.target.form && ev.target.form.id === 'bookForm' && ev.target.name in S.form) S.form[ev.target.name] = ev.target.value;
+});
+document.addEventListener('submit', function (ev) {
+  if (ev.target.id !== 'bookForm') return;
+  ev.preventDefault();
+  var fd = new FormData(ev.target), t = typeById(S.type);
+  var f = { name: fd.get('name').trim(), email: fd.get('email').trim(), phone: fd.get('phone').trim(), address: (fd.get('address') || '').trim(), notes: fd.get('notes').trim() };
+  S.form = f;
+  var err = !f.name ? 'Please enter your full name.' : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email) ? 'Please enter a valid email address.'
+    : f.phone.replace(/\D/g, '').length < 10 ? 'Please enter a phone number with area code.' : (t.needsAddress && f.address.length < 6) ? 'Please enter the address where dinner will be.' : '';
+  if (err) { S.error = err; render(); return; }
+  S.busy = true; S.error = ''; render();
+  api('createBooking', Object.assign({ location: S.loc, type: S.type, detail: S.detail, start: S.slot, website: fd.get('website') }, f))
+    .then(function (b) { S.busy = false; S.booking = b; S.step = 'done'; render(); scrollTop(); })
+    .catch(function (e) {
+      S.busy = false; S.error = e.message;
+      if (/taken|no longer available/i.test(e.message)) { S.availKey = ''; S.step = 'time'; loadAvail(S.loc, S.type); }
+      render();
+    });
+});
+$('#homeLink').addEventListener('click', function (ev) {
+  if (S.page === 'admin') { ev.preventDefault(); return; }
+  if (LIVE && !EMBED && BOOT.baseUrl) { this.href = BOOT.baseUrl; return; }
+  ev.preventDefault(); S.page = 'book'; S.step = 'location'; S.type = null; S.slot = null; render(); scrollTop();
+});
+
+
+/* ======================================================================
+   Start
+   ====================================================================== */
+if (S.page === 'manage') {
+  api('getBooking', BOOT.id, BOOT.token).then(function (b) { S.manage.b = b; render(); }).catch(function (e) { S.manage.error = e.message; render(); });
+} else if (S.page === 'admin') {
+  refreshAdmin().catch(function (e) { S.admin.error = e.message; render(); });
+}
+if (!LIVE) $('#demo').innerHTML = '<div class="demo">Preview with sample times. Once deployed, this reads Fr. Bobby’s real calendar. ' +
+  '<button class="linkish" onclick="S.page=\'admin\';S.admin.data=DEMO.adminList();render()">See Fr. Bobby’s admin view</button> · ' +
+  '<button class="linkish" onclick="S.page=\'book\';S.step=\'location\';render()">Booking view</button></div>';
+render();
+if (EMBED) {
+  window.addEventListener('load', postHeight);
+  if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.body);
+}
+
+/* ======================================================================
+   Demo backend (only used outside Apps Script, for previewing the design)
+   ====================================================================== */
+function demoBoot() {
+  return {
+    page: 'book', id: '', token: '', key: 'demo', loc: '', baseUrl: '', owner: 'Fr. Bobby Vogel', tz: 'America/Indiana/Indianapolis',
+    locations: [
+      { id: 'rushville', name: 'Rushville', parish: 'St. Mary Catholic Church', address: '512 N Perkins St, Rushville, IN 46173' },
+      { id: 'connersville', name: 'Connersville', parish: 'St. Gabriel Catholic Church', address: '232 W 9th St, Connersville, IN 47331' }
+    ],
+    types: [
+      { id: 'marriage', name: 'Marriage Preparation', minutes: 60, icon: 'rings', blurb: 'Begin preparing for your wedding in the Church. Please reach out at least six months before your date.' },
+      { id: 'sacramental', name: 'Sacramental Preparation', minutes: 45, icon: 'shell', options: ['Baptism', 'Confirmation'], blurb: 'Plan a Baptism for your child, or talk through Confirmation.' },
+      { id: 'ocia', name: 'OCIA: Joining the Church', minutes: 60, icon: 'door', blurb: 'Curious about becoming Catholic, or finishing your sacraments as an adult? Start here.' },
+      { id: 'funeral', name: 'Funeral Planning', minutes: 60, icon: 'candle', blurb: 'Plan the Funeral Mass for someone you love. If a death has just occurred, please also call the parish office.' },
+      { id: 'dinner', name: 'Dinner or Social Visit', minutes: 120, icon: 'table', needsAddress: true, blurb: 'Invite Fr. Bobby to share a meal with your family.' }
+    ]
+  };
+}
+var DEMO = (function () {
+  var tzOff = '-05:00';
+  function ymd(d) { return d.toISOString().slice(0, 10); }
+  function ms(date, hm) { return new Date(date + 'T' + hm + ':00' + tzOff).getTime(); }
+  function where(date) { var w = new Date(date + 'T12:00:00Z').getUTCDay(); return (w === 2 || w === 3) ? 'connersville' : 'rushville'; }
+  function avail(loc, typeId) {
+    var t = BOOT.types.filter(function (x) { return x.id === typeId; })[0], days = [];
+    var start = new Date(); start.setUTCHours(12, 0, 0, 0);
+    for (var i = 0; i < 61; i++) {
+      var d = new Date(start); d.setUTCDate(d.getUTCDate() + i);
+      var date = ymd(d), w = d.getUTCDay(), md = date.slice(5), day = { date: date, reason: null, elsewhere: null, slots: [] };
+      if (w === 0 || w === 1) day.reason = 'Closed';
+      else if (md === '12-24' || md === '12-25' || md === '12-31' || md === '01-01' || md === '11-26') day.reason = 'Holiday';
+      else if (i < 1) day.reason = 'Too soon';
+      else if (where(date) !== loc) { day.reason = 'In ' + (where(date) === 'rushville' ? 'Rushville' : 'Connersville'); day.elsewhere = where(date); }
+      else {
+        var hrs = t.needsAddress ? ['17:00', '17:30', '18:00'] : ['09:30', '10:00', '10:30', '11:00', '13:30', '14:00', '14:30', '15:00', '16:00', '18:00'];
+        hrs.forEach(function (h, k) { if ((i * 7 + k * 3) % 5 !== 0) day.slots.push({ t: ms(date, h), label: fmtTime(ms(date, h)) }); });
+        if (!day.slots.length) day.reason = 'Fully booked';
+      }
+      days.push(day);
+    }
+    return { tz: TZ, days: days };
+  }
+  function view(o) {
+    var t = BOOT.types.filter(function (x) { return x.id === o.type; })[0], l = BOOT.locations.filter(function (x) { return x.id === o.location; })[0];
+    var end = o.start + t.minutes * 60000;
+    return { id: o.id || 'FB-7KQ3MX', status: o.status || 'Confirmed', location: l.id, locationName: l.name, parish: l.parish, parishAddress: l.address,
+      type: t.id, typeName: t.name + (o.detail ? ': ' + o.detail : ''), minutes: t.minutes, start: o.start, end: end,
+      dateLabel: new Date(o.start).toLocaleDateString('en-US', { timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }),
+      timeLabel: fmtTime(o.start) + ' – ' + fmtTime(end), name: o.name, email: o.email, phone: o.phone || '(765) 555-0142', address: o.address || '', notes: o.notes || '',
+      past: false, gcal: 'https://calendar.google.com/calendar/render?action=TEMPLATE', manageUrl: '#manage' };
+  }
+  var sample = [];
+  function seed() {
+    if (sample.length) return;
+    var a = avail('rushville', 'marriage').days.filter(function (d) { return d.slots.length; });
+    var c = avail('connersville', 'ocia').days.filter(function (d) { return d.slots.length; });
+    sample = [
+      view({ id: 'FB-2HM8QA', type: 'marriage', location: 'rushville', start: a[0].slots[0].t, name: 'Claire & Daniel Hoeing', email: 'claire@example.com', notes: 'Hoping for a June wedding next year.' }),
+      view({ id: 'FB-9TRP4C', type: 'sacramental', detail: 'Baptism', location: 'rushville', start: a[0].slots[2].t, name: 'Maria Schutte', email: 'maria@example.com' }),
+      view({ id: 'FB-K4W7NB', type: 'ocia', location: 'connersville', start: c[0].slots[1].t, name: 'James Whitaker', email: 'jwhit@example.com' }),
+      view({ id: 'FB-QX3D6E', type: 'dinner', location: 'rushville', start: avail('rushville', 'dinner').days.filter(function (d) { return d.slots.length; })[1].slots[0].t, name: 'The Meyer Family', email: 'meyers@example.com', address: '1408 N Main St, Rushville, IN' })
+    ];
+  }
+  return {
+    getAvailability: function (loc, type) { return avail(loc, type); },
+    createBooking: function (f) { return view(f); },
+    getBooking: function () { seed(); return sample[0]; },
+    rescheduleBooking: function (id, tok, t) { var b = Object.assign({}, S.manage.b, { start: t }); return view(b); },
+    cancelBooking: function () { return Object.assign({}, S.manage.b, { status: 'Cancelled' }); },
+    adminList: function () { seed(); return { sheetUrl: '#', publicUrl: location.href, upcoming: sample.filter(function (b) { return b.status !== 'Cancelled'; }), past: [], cancelled: sample.filter(function (b) { return b.status === 'Cancelled'; }) }; },
+    adminAvailability: function (k, id) { var b = sample.filter(function (x) { return x.id === id; })[0]; return avail(b.location, b.type); },
+    adminReschedule: function (k, id, when) {
+      var b = sample.filter(function (x) { return x.id === id; })[0];
+      var t = typeof when === 'string' ? new Date(when + ':00' + tzOff).getTime() : when;
+      var nb = view(Object.assign({}, b, { start: t, type: b.type, location: b.location, detail: (b.typeName.split(': ')[1] || '') }));
+      sample[sample.indexOf(b)] = nb; sample.sort(function (x, y) { return x.start - y.start; }); return nb;
+    },
+    adminCancel: function (k, id) { var b = sample.filter(function (x) { return x.id === id; })[0]; b.status = 'Cancelled'; return b; }
+  };
+})();
+</script>
+</body>
+</html>
