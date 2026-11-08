@@ -1,0 +1,4 @@
+# Netlify publishes only the site/ folder.
+# apps-script/ holds the Google Apps Script source and is never put on the website.
+[build]
+  publish = "site"
