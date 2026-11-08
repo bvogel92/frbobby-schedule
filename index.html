@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule a Visit · Fr. Bobby Vogel</title>
+<meta name="description" content="Book a meeting with Fr. Bobby Vogel at St. Mary in Rushville or St. Gabriel in Connersville.">
+<meta property="og:title" content="Schedule a visit with Fr. Bobby">
+<meta property="og:description" content="Marriage prep, Baptism and Confirmation, OCIA, funeral planning, or dinner. Pick a time that works for you.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1D3A6E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231D3A6E'/%3E%3Cpath fill='%23C9A24B' d='M14 5h4v7h7v4h-7v11h-4V16H7v-4h7z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+/* Same vellum-and-lapis look as the scheduler inside. */
+:root{
+  --bg:#EEF0F4; --ink:#13264A; --muted:#5B6579; --primary:#1D3A6E; --gilt:#A9822F; --gilt-bright:#C9A24B; --bar-muted:#C9D4EA;
+  --line:rgba(29,58,110,.28);
+  --display:'Marcellus',Georgia,serif; --body:'Alegreya Sans',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5}
+a{color:var(--primary)}
+:focus-visible{outline:2px solid var(--gilt);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.bar{background:var(--primary);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.bar .wrap{display:flex;align-items:center;gap:12px;min-height:64px}
+.bar svg{width:24px;height:24px;flex:none;color:var(--gilt-bright)}
+.bar .who{font-family:var(--display);font-size:20px;color:#fff;text-decoration:none}
+.bar .sub{margin-left:auto;color:var(--bar-muted);font-size:15px}
+#app{position:relative}
+#scheduler{display:block;width:100%;height:0;border:0}
+.waiting{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:48px 24px;color:var(--muted)}
+.waiting .arch{width:56px;height:76px;border:1.5px solid var(--primary);border-radius:999px 999px 3px 3px;position:relative;box-shadow:inset 0 0 0 5px var(--bg),inset 0 0 0 6px var(--line)}
+.waiting .arch::after{content:"";position:absolute;left:50%;top:18px;width:18px;height:18px;margin-left:-9px;border-radius:50%;border:1.5px solid var(--gilt);border-top-color:transparent;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.waiting .arch::after{animation:none;border-top-color:var(--gilt)}}
+.waiting p{margin:0;max-width:40ch}
+.waiting .slow{display:none}
+.waiting.is-slow .slow{display:block}
+.loaded .waiting{display:none}
+@media (max-width:760px){.bar .sub{display:none}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M14 3h4v8h8v4h-8v14h-4V15H6v-4h8z"/></svg>
+  <a class="who" href="/">Fr. Bobby Vogel</a>
+  <span class="sub">St. Mary, Rushville &amp; St. Gabriel, Connersville</span>
+</div></header>
+
+<main id="app">
+  <div class="waiting" id="waiting" role="status">
+    <div class="arch" aria-hidden="true"></div>
+    <p>Opening Fr. Bobby’s calendar…</p>
+    <p class="slow">This is taking longer than usual. <a id="direct" href="#">Open the scheduler directly</a>.</p>
+  </div>
+  <noscript><p class="wrap">This page needs JavaScript. <a href="https://script.google.com/macros/s/AKfycbz10JqKE_r1G2StOqxBwUwocyOTVB_4VLEcHpnXM8UxcLWVudEAFPSttSLBALGRkH25Rw/exec">Open the scheduler directly</a>.</p></noscript>
+</main>
+
+<script>
+(function () {
+  // The scheduler itself runs on Google Apps Script; this page shows it at your own address.
+  var APP = 'https://script.google.com/macros/s/AKfycbz10JqKE_r1G2StOqxBwUwocyOTVB_4VLEcHpnXM8UxcLWVudEAFPSttSLBALGRkH25Rw/exec';
+
+  // Pass links like ?loc=rushville, or the "Change or cancel" link from emails, through to the scheduler.
+  var q = new URLSearchParams(window.location.search);
+  q.delete('embed');
+  var direct = APP + (q.toString() ? '?' + q.toString() : '');
+  q.set('embed', '1');
+
+  var app = document.getElementById('app');
+  var waiting = document.getElementById('waiting');
+  document.getElementById('direct').href = direct;
+
+  var frame = document.createElement('iframe');
+  frame.id = 'scheduler';
+  frame.title = 'Schedule a visit with Fr. Bobby';
+  frame.src = APP + '?' + q.toString();
+  app.appendChild(frame);
+
+  var shown = false;
+  function show() {
+    if (shown) return;
+    shown = true;
+    app.classList.add('loaded');
+  }
+
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    var h = Number(d.frbobbyHeight);
+    if (h >= 300 && h <= 20000) { frame.style.height = h + 'px'; show(); }
+    if (d.frbobbyScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // If the scheduler hasn't reported in after a while, offer the direct link,
+  // and after longer still, show the frame at screen height in case it loaded anyway.
+  setTimeout(function () { if (!shown) waiting.classList.add('is-slow'); }, 9000);
+  setTimeout(function () { if (!shown) { frame.style.height = '100vh'; } }, 15000);
+})();
+</script>
+</body>
+</html>
