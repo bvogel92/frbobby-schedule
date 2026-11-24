@@ -1,5 +1,0 @@
-# Transitional: the site now lives on GitHub Pages (from docs/).
-# Netlify keeps serving the same folder until the DNS record moves to GitHub,
-# after which this file and the Netlify site can be deleted.
-[build]
-  publish = "docs"
