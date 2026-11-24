@@ -9,15 +9,16 @@ and emails everyone when a meeting is booked, moved or cancelled.
 
 | Folder | What it is | Where it runs |
 | --- | --- | --- |
-| `site/` | The page people visit at your own web address. It shows the scheduler inside it. | Netlify (published automatically) |
+| `docs/` | The page people visit at meetwith.bobbyvogel.com. It shows the scheduler inside it. | GitHub Pages (published automatically) |
 | `apps-script/` | The scheduler itself: availability, booking, emails, admin page. | Google Apps Script (copied in by hand) |
 
-`netlify.toml` tells Netlify to publish only `site/`, so the script files are
-never visible on the website.
+GitHub Pages publishes only `docs/`. `docs/CNAME` holds the custom web address,
+so leave it in place.
 
 ## Changing the website page
 
-Edit `site/index.html` and commit to `main`. Netlify republishes the site on its own.
+Edit `docs/index.html` and commit to `main`. GitHub Pages republishes the site
+within a minute or two.
 
 ## Changing the scheduler
 

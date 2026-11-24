@@ -1,4 +1,5 @@
-# Netlify publishes only the site/ folder.
-# apps-script/ holds the Google Apps Script source and is never put on the website.
+# Transitional: the site now lives on GitHub Pages (from docs/).
+# Netlify keeps serving the same folder until the DNS record moves to GitHub,
+# after which this file and the Netlify site can be deleted.
 [build]
-  publish = "site"
+  publish = "docs"
